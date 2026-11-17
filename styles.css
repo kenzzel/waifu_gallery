@@ -96,3 +96,12 @@ body.wg-app{background:var(--wg-bg);color:var(--wg-text);font-family:'DM Sans',s
 #homeScreen{padding-top:12px}
 #feedGrid .pin-credit{display:none!important}
 #feedGrid .pin-card{margin-bottom:10px}
+
+/* Social profile counts and follow relationship */
+.social-profile-stats{display:flex;gap:30px;justify-content:flex-start}
+.social-profile-stats span{min-width:48px}
+.social-profile-stats b{font-size:17px}
+.social-profile-stats small{font-size:11px}
+.follow-profile-btn{border:0;border-radius:22px;padding:10px 17px;background:#a978e6;color:#160d20;font-size:12px;font-weight:750;white-space:nowrap}
+.follow-profile-btn.following{background:#211a2b;color:#d9c3f3;border:1px solid #9e79c4}
+.follow-profile-btn.mutual-friend{background:#2a2035;color:#e6d4ff;border:1px solid #b58ae6}
