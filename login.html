@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08080b">
+<title>Masuk · Waifu Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="wg-app">
+<div id="authView" class="auth-screen">
+  <div class="auth-art"><span class="eyebrow">ANIME ART COMMUNITY</span><h1>Wibu<br><em>Gallery</em></h1><p>Temukan dan bagikan karya favoritmu.</p></div>
+  <div class="auth-panel"><div class="brand-mark"><img src="wg-logo.png" alt="Waifu Gallery logo"></div><div class="eyebrow">WELCOME BACK</div><h2 id="authTitle">Masuk ke Waifu Gallery</h2>
+    <form id="authForm" class="stack"><label id="nameWrap" class="hidden">Nama tampilan<input id="displayName" placeholder="Nama kamu"></label><label>Email<input id="email" type="email" required placeholder="nama@email.com"></label><label>Password<input id="password" type="password" minlength="6" required placeholder="Minimal 6 karakter"></label><button class="btn primary full" id="authSubmit">Masuk</button></form>
+    <p class="auth-switch"><span id="switchText">Belum punya akun?</span> <button class="text-btn" id="switchAuth">Daftar</button></p><p class="tiny muted" id="authMessage">Masuk untuk menyukai, menyimpan, dan mengunggah foto.</p><button class="btn secondary full" id="browseBtn">Jelajahi tanpa login</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="login.js"></script>
+</body>
+</html>

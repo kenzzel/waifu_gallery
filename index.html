@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08080b"><title>Waifu Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.startup-gate{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;text-align:center;background:#08080b;color:#f7f4fb;font-family:"DM Sans",sans-serif}
+.startup-gate .startup-mark{width:54px;height:54px;border-radius:17px;background:linear-gradient(135deg,#8b5bd1,#c28af0);display:grid;place-items:center;font-weight:800;font-size:22px;color:white}
+.startup-gate .startup-mark span{color:#f1d8ff}
+.startup-gate p{color:#a8a0b4;font-size:14px;max-width:300px;line-height:1.5}
+.startup-gate a,.startup-gate button{border:1px solid #76529b;border-radius:12px;padding:11px 18px;color:#fff;background:#241a30;text-decoration:none;font:inherit}
+.startup-gate .hidden{display:none!important}
+</style>
+</head>
+<body class="wg-app">
+<div id="startupGate" class="startup-gate" role="status">
+  <div class="startup-mark"><img src="wg-logo.png" alt="Waifu Gallery logo"></div>
+  <strong>Waifu Gallery</strong>
+  <p id="startupMessage">Memeriksa sesi akun...</p>
+  <a id="startupLoginLink" class="hidden" href="login.html">Buka halaman masuk</a>
+  <button id="startupRetry" class="hidden" type="button">Coba lagi</button>
+</div>
+<div id="appView" class="wg-shell hidden">
+  <header class="wg-header"><a class="wg-wordmark" href="#"><span class="wg-symbol"><img src="wg-logo.png" alt="WG"></span><span>Waifu Gallery</span></a><div class="wg-head-actions"><button id="searchOpen" class="icon-btn" aria-label="Cari">⌕</button><button id="headerAdd" class="icon-btn accent" aria-label="Tambah">＋</button></div></header>
+  <main id="homeScreen" class="wg-screen"><span id="feedCount" class="hidden" aria-hidden="true"></span><div id="feedGrid" class="masonry-grid"></div></main>
+  <main id="storageScreen" class="wg-screen hidden">
+    <div class="screen-title"><span class="eyebrow">MY LIBRARY</span><h1>Penyimpanan</h1><p class="storage-note">Semua foto yang kamu unggah tersimpan di sini dan otomatis tampil di Beranda serta Koleksi profilmu.</p></div>
+    <div class="storage-summary"><span id="storageCount">0 foto</span><span>Otomatis dipublikasikan</span></div>
+    <div id="storageGrid" class="masonry-grid"></div>
+  </main>
+  <main id="searchScreen" class="wg-screen hidden"><div class="screen-title"><span class="eyebrow">EXPLORE</span><h1>Jelajahi</h1></div><input id="searchInput" class="search-field" placeholder="Cari gambar, anime, karakter, member..."><div id="searchGrid" class="masonry-grid"></div></main>
+  <main id="profileScreen" class="wg-screen hidden"><section class="profile-head"><div class="profile-topline"><div class="profile-avatar" id="profileAvatar">W</div><div class="profile-identity"><h1 id="profileName">Member</h1><p id="profileHandle">@member</p></div><div class="profile-buttons"><button id="ownerPanelBtn" class="outline-btn hidden">Owner Panel</button><button id="editProfile" class="outline-btn">Edit profil</button><button id="logoutBtn" class="outline-btn hidden">Keluar</button></div></div><p id="profileBio" class="profile-bio">Pecinta anime dan ilustrasi.</p><div class="profile-stats"><span><b id="profileUploadCount">0</b><small>Foto</small></span><span><b id="profileSavedCount">0</b><small>Disimpan</small></span><span><b id="profileLikedCount">0</b><small>Disukai</small></span></div></section>
+    <nav class="profile-tabs"><button class="profile-tab active" data-profile-tab="saved">♧ <span>Disimpan</span></button><button class="profile-tab" data-profile-tab="liked">♡ <span>Disukai</span></button><button class="profile-tab" data-profile-tab="uploads">▦ <span>Koleksi</span></button></nav><div id="profileGrid" class="masonry-grid"></div>
+  </main>
+    <main id="ownerScreen" class="wg-screen hidden">
+    <div class="screen-title owner-title"><span class="eyebrow">WG CONTROL CENTER</span><h1>Owner Dashboard</h1><p>Kelola komunitas dan konten Waifu Gallery.</p></div>
+    <div class="owner-stats">
+      <article class="owner-stat"><span>Member</span><strong id="ownerMemberCount">—</strong></article>
+      <article class="owner-stat"><span>Foto terunggah</span><strong id="ownerPhotoCount">—</strong></article>
+      <article class="owner-stat"><span>Admin</span><strong id="ownerAdminCount">—</strong></article>
+      <article class="owner-stat"><span>Owner</span><strong id="ownerOwnerCount">—</strong></article>
+    </div>
+    <section class="owner-section"><div class="owner-section-head"><h2>Manajemen member</h2><button class="outline-btn" id="ownerRefresh">Refresh</button></div><div id="ownerMembers" class="owner-list"><p class="owner-empty">Memuat member...</p></div></section>
+    <section class="owner-section"><div class="owner-section-head"><h2>Foto terbaru</h2><span class="owner-hint">Moderasi konten</span></div><div id="ownerPhotos" class="owner-photo-list"><p class="owner-empty">Memuat foto...</p></div></section>
+  </main>
+  <nav class="bottom-nav"><button class="bottom-item active" data-screen="home"><span>⌂</span><small>Beranda</small></button><button class="bottom-item" data-screen="storage"><span>▤</span><small>Simpan</small></button><button class="bottom-add" id="bottomAdd">＋</button><button class="bottom-item" data-screen="search"><span>⌕</span><small>Cari</small></button><button class="bottom-item" data-screen="profile"><span>◉</span><small>Profil</small></button><button class="bottom-item owner-nav hidden" id="ownerNavBtn" data-screen="owner"><span>✦</span><small>Owner</small></button></nav>
+</div>
+<div id="plusMenu" class="overlay hidden"><button class="overlay-dismiss" data-dismiss="plus"></button><section class="action-sheet"><div class="sheet-grab"></div><div class="sheet-heading">Buat sesuatu</div><button class="sheet-option" id="plusUpload"><span class="sheet-icon">↑</span><span><b>Up foto</b><small>Bagikan gambar ke beranda</small></span><i>›</i></button><button class="sheet-option" id="plusCollection"><span class="sheet-icon">▣</span><span><b>Koleksi</b><small>Buat album dari foto unggahanmu</small></span><i>›</i></button><button class="sheet-option" id="plusCollage"><span class="sheet-icon">▦</span><span><b>Kolase</b><small>Gabungkan 2–9 foto menjadi satu</small></span><i>›</i></button></section></div>
+<div id="pinEditor" class="pin-editor hidden" role="dialog" aria-modal="true" aria-label="Detail foto">
+  <header class="pin-editor-header"><button id="pinEditorClose" class="icon-btn" aria-label="Tutup">‹</button><strong>Atur detail foto</strong><span></span></header>
+  <div class="pin-editor-body">
+    <div class="pin-preview-wrap"><img id="pinPreview" alt="Pratinjau foto"></div>
+    <label class="pin-field"><span>Judul foto *</span><input id="pinTitle" maxlength="100" placeholder="Contoh: Elaina tersenyum"></label>
+    <label class="pin-field"><span>Caption / deskripsi</span><textarea id="pinDescription" maxlength="800" rows="4" placeholder="Ceritakan isi gambar ini..."></textarea><small>Maksimal 800 karakter</small></label>
+    <label class="pin-field"><span>Tag topik</span><input id="pinTags" maxlength="300" placeholder="anime, elaina, waifu, witch"><small>Pisahkan setiap tag dengan koma. Maksimal 12 tag.</small></label>
+    <label class="pin-field"><span>Tautan (opsional)</span><input id="pinExternalUrl" type="url" maxlength="500" placeholder="https://..."></label>
+    <p class="pin-editor-note">Foto akan otomatis diterbitkan ke Beranda dan masuk ke koleksi unggahan profilmu. Isi judul, caption, dan tag agar mudah ditemukan lewat pencarian.</p>
+  </div>
+  <footer class="pin-editor-footer"><button id="pinEditorCancel" class="outline-btn">Batal</button><button id="pinPublish" class="primary-btn">Terbitkan foto</button></footer>
+</div>
+<input id="quickPhotoInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp" onchange="window.wgHandleUploadSelection && window.wgHandleUploadSelection()"><input id="collageInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+<div id="detailView" class="detail-view hidden"><header class="detail-header"><button class="icon-btn" id="detailBack">‹</button><span>Detail karya</span><button class="icon-btn" id="detailMore">•••</button></header><div class="detail-scroll"><img id="detailImage" class="detail-image" alt=""><div class="detail-actions"><button id="likeBtn" class="detail-action">♡ <span>Suka</span></button><button id="commentOpen" class="detail-action">☷ <span>Komentar</span></button><button id="shareBtn" class="detail-action">↗ <span>Bagikan</span></button><button id="saveBtn" class="save-btn">Simpan</button></div><div class="detail-owner" id="detailOwner"><div class="mini-avatar" id="detailAvatar">W</div><div><b id="detailMember">Member</b><small id="detailDate"></small></div></div><h2 id="detailTitle"></h2><p id="detailDescription"></p><div id="detailTags" class="detail-tags"></div><a id="detailExternalLink" class="detail-external-link hidden" target="_blank" rel="noopener noreferrer">Buka tautan terkait ↗</a><div class="related-heading">Karya lainnya</div><div id="relatedGrid" class="masonry-grid"></div></div></div>
+<div id="moreSheet" class="overlay hidden"><button class="overlay-dismiss" data-dismiss="more"></button><section class="action-sheet more-sheet"><div class="sheet-grab"></div><div class="more-preview"><img id="morePreview" alt=""><b>Menu foto</b></div><button class="sheet-option" id="moreFollow"><span>♧</span><span><b id="followLabel">Lihat profil kreator</b></span></button><button class="sheet-option" id="copyLink"><span>↗</span><span><b>Salin tautan</b></span></button><button class="sheet-option" id="downloadImage"><span>↓</span><span><b>Unduh gambar</b><small>Simpan file ke perangkat</small></span></button><button class="sheet-option" id="addToCollection"><span>▦</span><span><b>Tambahkan ke koleksi</b></span></button><button class="sheet-option" id="reportPhoto"><span>⚑</span><span><b>Laporkan</b></span></button><button class="sheet-option danger hidden" id="deletePhoto">Hapus foto</button></section></div>
+<div id="commentsView" class="overlay hidden"><button class="overlay-dismiss" data-dismiss="comments"></button><section class="action-sheet comments-sheet"><div class="sheet-grab"></div><div class="sheet-heading">Komentar</div><div id="commentList" class="comment-list"></div><form id="commentForm" class="comment-form"><input id="commentInput" placeholder="Tulis komentar..." maxlength="500"><button>Kirim</button></form></section></div>
+<div id="collectionModal" class="overlay hidden"><button class="overlay-dismiss" data-dismiss="collection"></button><section class="action-sheet collection-sheet"><div class="sheet-grab"></div><div class="sheet-heading">Buat koleksi</div><label>Nama koleksi<input id="collectionName" maxlength="60" placeholder="Contoh: Elaina favorit"></label><div id="collectionPhotoChoices" class="collection-choices"></div><button class="btn primary full" id="saveCollection">Buat koleksi</button></section></div>
+<div id="editModal" class="overlay hidden"><button class="overlay-dismiss" data-dismiss="edit"></button><section class="action-sheet edit-sheet"><div class="sheet-grab"></div><div class="sheet-heading">Edit profil</div><div class="avatar-editor"><div class="avatar-preview" id="avatarPreview">W</div><div class="avatar-editor-actions"><b>Foto profil</b><small>JPG, PNG, atau WEBP · Maksimal 5 MB</small><label class="avatar-pick" for="avatarInput">Pilih foto</label><button type="button" class="text-btn remove-avatar" id="removeAvatar">Hapus foto profil</button></div></div><input id="avatarInput" class="hidden" type="file" accept="image/jpeg,image/png,image/webp"><label>Nama tampilan<input id="editName" maxlength="40"></label><label>Bio<textarea id="editBio" maxlength="160" rows="3"></textarea></label><button class="btn primary full" id="saveProfile">Simpan perubahan</button></section></div>
+<div id="toast" class="toast"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="app.js?v=20261117-home-photo-only-1"></script>
+</body></html>
